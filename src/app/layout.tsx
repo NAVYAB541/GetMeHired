@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SydneyDevJobs — CS & SWE Roles in Sydney',
-  description: 'AI-powered job board for CS graduates and software engineers in Sydney, Australia.',
+  title: 'GetMeHired — CS & SWE Jobs in Sydney',
+  description: 'Find your next Sydney CS or software engineering role. AI-powered, built for grads.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

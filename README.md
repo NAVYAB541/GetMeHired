@@ -1,4 +1,4 @@
-# SydneyDevJobs 🦘
+# GetMeHired 🦘
 
 An AI-powered job board for CS graduates and software engineers in Sydney, Australia. Fetches real-time job listings using Claude AI, with save/apply tracking, search, filtering, and sorting.
 
@@ -26,8 +26,8 @@ An AI-powered job board for CS graduates and software engineers in Sydney, Austr
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/sydney-dev-jobs.git
-cd sydney-dev-jobs
+git clone https://github.com/NAVYAB541/getmehired.git
+cd getmehired
 npm install
 ```
 
