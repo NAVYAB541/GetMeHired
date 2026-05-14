@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f9f8f6;
+  --surface: #ffffff;
+  --surface2: #f3f1ee;
+  --border: #e5e3df;
+  --border2: #d0cdc8;
+  --text: #1a1917;
+  --text2: #5a574f;
+  --text3: #9a9790;
+  --teal: #1D9E75;
+  --teal-light: #e1f5ee;
+  --blue: #2563eb;
+  --blue-light: #eff6ff;
+  --amber: #b45309;
+  --amber-light: #fffbeb;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --red-light: #fef2f2;
+  --red: #dc2626;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+* { box-sizing: border-box; }
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
