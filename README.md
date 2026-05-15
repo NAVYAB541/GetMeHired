@@ -1,6 +1,6 @@
 # GetMeHired 🦘
 
-An AI-powered job board for CS graduates and software engineers in Sydney, Australia. Fetches real-time job listings using Claude AI, with save/apply tracking, search, filtering, and sorting.
+An AI-powered job board for CS graduates and software engineers in Sydney, Australia. Fetches job listings using Groq AI (LLaMA 3.3 70B), with save/apply tracking, search, filtering, and sorting.
 
 ## Features
 
@@ -19,7 +19,7 @@ An AI-powered job board for CS graduates and software engineers in Sydney, Austr
 - **Next.js 14** (App Router)
 - **TypeScript**
 - **Tailwind CSS**
-- **Anthropic Claude API** (server-side, key never exposed to client)
+- **Groq API** — LLaMA 3.3 70B (server-side, key never exposed to client)
 
 ## Getting Started
 
@@ -37,13 +37,13 @@ npm install
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your Anthropic API key:
+Edit `.env.local` and add your Groq API key:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...
+GROQ_API_KEY=gsk_...
 ```
 
-Get your key at [console.anthropic.com](https://console.anthropic.com).
+Get your free key at [console.groq.com](https://console.groq.com).
 
 ### 3. Run locally
 
@@ -60,20 +60,16 @@ npm install -g vercel
 vercel
 ```
 
-Add `ANTHROPIC_API_KEY` in your Vercel project environment variables.
+Add `GROQ_API_KEY` in your Vercel project environment variables.
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── api/jobs/route.ts   # Server-side Anthropic API call
-│   ├── page.tsx            # Main job board UI
-│   ├── layout.tsx
-│   └── globals.css
-├── components/
-│   ├── JobCard.tsx         # Individual job listing card
-│   └── StatsBar.tsx        # Summary stats row
+app/
+├── api/jobs/route.ts   # Server-side Groq API call
+├── page.tsx            # Main job board UI
+├── layout.tsx
+├── globals.css
 └── lib/
     ├── types.ts            # TypeScript interfaces
     └── useLocalStorage.ts  # Persistent state hook
@@ -83,9 +79,10 @@ src/
 
 | Variable | Description |
 |---|---|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key (required) |
+| `GROQ_API_KEY` | Your Groq API key (required) — free at console.groq.com |
 
 ## Notes
 
 - The AI generates realistic job listings based on real Sydney companies, real tech stacks, and plausible job board URLs. Links may not always point to live listings.
-- Each fetch costs approximately 1,500–2,000 input tokens and 1,500 output tokens.
+- Groq runs LLaMA 3.3 70B at ~800 tokens/sec — responses arrive in seconds.
+- Free tier: 14,400 requests/day, 500,000 tokens/minute.

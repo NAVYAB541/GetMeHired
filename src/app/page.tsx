@@ -33,7 +33,7 @@ export default function Home() {
       setJobs(data.jobs)
       setLastUpdated(new Date().toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' }))
     } catch (e) {
-      setError('Failed to fetch jobs. Check your ANTHROPIC_API_KEY and try again.')
+      setError('Could not fetch jobs — check your GROQ_API_KEY and try again.')
     } finally {
       setLoading(false)
     }

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import Groq from 'groq-sdk'
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 const SYSTEM = `You generate realistic, current Sydney Australia job listings for CS graduates and software engineers.
 Return ONLY a valid JSON array — no markdown, no code fences, no preamble. Each object must have exactly these keys:
@@ -24,19 +24,16 @@ Generate exactly 20 diverse, realistic openings. Mix: big tech (Atlassian, Canva
 
 export async function GET() {
   try {
-    const message = await client.messages.create({
-      model: 'claude-opus-4-5',
-      max_tokens: 4096,
-      system: SYSTEM,
+    const completion = await client.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: 8192,
       messages: [
-        {
-          role: 'user',
-          content: 'Fetch current Sydney CS and software engineering job listings. Return JSON array only.',
-        },
-      ],
+        { role: 'system', content: SYSTEM },
+        { role: 'user', content: 'Generate 20 current Sydney CS and software engineering job listings. Return only the JSON array.' }
+      ]
     })
 
-    const raw = message.content.find((b) => b.type === 'text')?.text ?? '[]'
+    const raw = completion.choices[0]?.message?.content ?? '[]'
     const clean = raw.replace(/```json|```/g, '').trim()
     const jobs = JSON.parse(clean)
 
