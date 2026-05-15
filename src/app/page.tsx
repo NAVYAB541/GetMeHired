@@ -198,7 +198,7 @@ export default function Home() {
                   : 'bg-white border-[var(--border)] text-[var(--text2)] hover:bg-[var(--surface2)]'
               }`}
             >
-              {s === 'date' ? '📅 Date' : s === 'rating' ? '⭐ Rating' : '🔤 A–Z'}
+              {s === 'date' ? 'Date' : s === 'rating' ? 'Rating' : 'A–Z'}
             </button>
           ))}
         </div>

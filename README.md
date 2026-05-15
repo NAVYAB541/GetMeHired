@@ -1,25 +1,25 @@
-# GetMeHired 🦘
+# GetMeHired
 
-An AI-powered job board for CS graduates and software engineers in Sydney, Australia. Fetches job listings using Groq AI (LLaMA 3.3 70B), with save/apply tracking, search, filtering, and sorting.
+A real-time job board for CS graduates and software engineers in Sydney, Australia. Scrapes live listings from Seek, LinkedIn, Indeed and more via the Adzuna API, with save/apply tracking, search, filtering, and sorting.
 
 ## Features
 
-- 🔍 **AI-powered fetch** — generates 20 realistic, current Sydney CS & SWE job listings per fetch
-- 📌 **Save jobs** — bookmark roles with a green sidebar indicator
-- ✅ **Track applications** — mark as applied with a blue sidebar indicator
-- 🔎 **Search** — filter by title, company, description, or skill
-- 📍 **Location filter** — CBD, North Sydney, Macquarie Park, Parramatta, Remote
-- 🏷️ **Type & source filters** — Graduate, Full Stack, AI/ML, DevOps; Seek, LinkedIn, GradAustralia, Indeed, Otta
-- 📊 **Sort** — by date posted, company rating, or A–Z
-- 💾 **Persistent** — saved/applied state survives page refresh via localStorage
-- 🔗 **Direct links** — every listing links out to the real job posting
+- **Real job listings** — live data from Seek, LinkedIn, Indeed, and more via Adzuna
+- **Save jobs** — bookmark roles with a green sidebar indicator
+- **Track applications** — mark as applied with a blue sidebar indicator
+- **Search** — filter by title, company, description, or skill
+- **Location filter** — CBD, North Sydney, Macquarie Park, Parramatta, Remote
+- **Type & source filters** — Graduate, Full Stack, AI/ML, DevOps; Seek, LinkedIn, Indeed, Adzuna
+- **Sort** — by date posted, company rating, or A–Z
+- **Persistent** — saved/applied state survives page refresh via localStorage
+- **Direct links** — every listing links to the real job posting
 
 ## Tech Stack
 
 - **Next.js 14** (App Router)
 - **TypeScript**
 - **Tailwind CSS**
-- **Groq API** — LLaMA 3.3 70B (server-side, key never exposed to client)
+- **Adzuna API** — real-time job aggregation from Seek, LinkedIn, Indeed & more
 
 ## Getting Started
 
@@ -31,19 +31,20 @@ cd getmehired
 npm install
 ```
 
-### 2. Set up your API key
+### 2. Set up API keys
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your Groq API key:
+Edit `.env.local`:
 
 ```
-GROQ_API_KEY=gsk_...
+ADZUNA_APP_ID=your-app-id
+ADZUNA_APP_KEY=your-app-key
 ```
 
-Get your free key at [console.groq.com](https://console.groq.com).
+Get your free Adzuna key at [developer.adzuna.com](https://developer.adzuna.com).
 
 ### 3. Run locally
 
@@ -60,13 +61,13 @@ npm install -g vercel
 vercel
 ```
 
-Add `GROQ_API_KEY` in your Vercel project environment variables.
+Add `ADZUNA_APP_ID` and `ADZUNA_APP_KEY` in your Vercel project environment variables.
 
 ## Project Structure
 
 ```
 app/
-├── api/jobs/route.ts   # Server-side Groq API call
+├── api/jobs/route.ts   # Server-side Adzuna API call
 ├── page.tsx            # Main job board UI
 ├── layout.tsx
 ├── globals.css
@@ -79,10 +80,11 @@ app/
 
 | Variable | Description |
 |---|---|
-| `GROQ_API_KEY` | Your Groq API key (required) — free at console.groq.com |
+| `ADZUNA_APP_ID` | Adzuna App ID — free at developer.adzuna.com |
+| `ADZUNA_APP_KEY` | Adzuna App Key — free at developer.adzuna.com |
 
 ## Notes
 
-- The AI generates realistic job listings based on real Sydney companies, real tech stacks, and plausible job board URLs. Links may not always point to live listings.
-- Groq runs LLaMA 3.3 70B at ~800 tokens/sec — responses arrive in seconds.
-- Free tier: 14,400 requests/day, 500,000 tokens/minute.
+- Job listings are real and sourced live from major Australian job boards.
+- Each "View & apply" link goes directly to the original job posting.
+- Free tier: 250 API requests/day.
