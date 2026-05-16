@@ -1,5 +1,7 @@
 # GetMeHired
 
+**Live demo: [get-me-hired-ht89vu8i5-navyas-projects-6c360713.vercel.app](https://get-me-hired-ht89vu8i5-navyas-projects-6c360713.vercel.app/)**
+
 A real-time job board for CS graduates and software engineers in Sydney, Australia. Scrapes live listings from Seek, LinkedIn, Indeed and more via the Adzuna API, with save/apply tracking, search, filtering, and sorting.
 
 ## Features
