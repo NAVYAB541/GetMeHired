@@ -65,6 +65,11 @@ function mapLocation(raw: string): string {
   return 'Sydney'
 }
 
+// Returns true if the role is clearly senior/leadership — not suitable for grads / <2yr exp
+function isSeniorRole(title: string): boolean {
+  return /\b(senior|sr\.|lead|principal|staff|head of|manager|director|vp|vice president|architect|distinguished|fellow|c-level|cto|cpo|ceo|chapter lead|\d{5,}\+?\s*years?)\b/i.test(title)
+}
+
 function mapSource(url: string): string {
   if (url.includes('seek.com'))     return 'Seek'
   if (url.includes('linkedin.com')) return 'LinkedIn'
@@ -97,14 +102,16 @@ export async function GET() {
 
   try {
     const queries = [
-      'software engineer',
-      'software developer',
+      'graduate software engineer',
+      'junior developer',
+      'junior software engineer',
+      'associate software engineer',
+      'entry level developer',
       'frontend developer',
       'backend developer',
-      'data engineer',
-      'devops',
-      'graduate developer',
-      'machine learning engineer',
+      'graduate data engineer',
+      'junior devops',
+      'junior machine learning',
     ]
 
     const results = await Promise.allSettled(queries.map(q => adzunaSearch(q)))
@@ -116,6 +123,7 @@ export async function GET() {
       if (r.status !== 'fulfilled') continue
       for (const item of r.value) {
         if (seen.has(String(item.id))) continue
+        if (isSeniorRole(item.title ?? '')) continue
         seen.add(String(item.id))
 
         const desc = truncate(item.description ?? '')

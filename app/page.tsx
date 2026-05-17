@@ -155,6 +155,7 @@ export default function Home() {
   const [typeFilter, setTypeFilter] = useState('')
   const [sourceFilter, setSourceFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('')
+  const [entryOnly, setEntryOnly] = useState(true)
   const [sort, setSort] = useState<SortKey>('date')
   const [tab, setTab] = useState<'all' | 'saved' | 'applied'>('all')
 
@@ -176,11 +177,14 @@ export default function Home() {
   const toggleSave  = useCallback((id: string) => setSavedIds((p)  => p.includes(id) ? p.filter(x => x !== id) : [...p, id]), [setSavedIds])
   const toggleApply = useCallback((id: string) => setAppliedIds((p) => p.includes(id) ? p.filter(x => x !== id) : [...p, id]), [setAppliedIds])
 
+  const SENIOR_RE = /\b(senior|sr\.|lead|principal|staff|head of|manager|director|vp|architect)\b/i
+
   const filtered = useMemo(() => {
     const kw = keyword.toLowerCase()
     let list = [...jobs]
     if (tab === 'saved')   list = list.filter(j => savedSet.has(j.id))
     if (tab === 'applied') list = list.filter(j => appliedSet.has(j.id))
+    if (entryOnly)         list = list.filter(j => !SENIOR_RE.test(j.title))
     if (kw) list = list.filter(j => `${j.title} ${j.company} ${j.description} ${(j.tags??[]).join(' ')}`.toLowerCase().includes(kw))
     if (locFilter)    list = list.filter(j => j.location.includes(locFilter) || (j.remote && locFilter === 'Remote'))
     if (typeFilter)   list = list.filter(j => j.type === typeFilter)
@@ -288,6 +292,18 @@ export default function Home() {
             <option value="applied">Applied only</option>
             <option value="new">New today</option>
           </select>
+          <button
+            onClick={() => setEntryOnly(e => !e)}
+            className={`px-3 py-2 text-[13px] rounded-xl border transition-all font-medium flex items-center gap-1.5 ${
+              entryOnly
+                ? 'bg-[var(--green-dim)] border-[var(--green)]/40 text-[var(--green)]'
+                : 'bg-[var(--surface)] border-[var(--border)] text-[var(--text3)] hover:border-[var(--green)] hover:text-[var(--green)]'
+            }`}
+          >
+            <span>{entryOnly ? '✓' : '○'}</span>
+            Entry level only
+          </button>
+
           {hasFilters && (
             <button onClick={() => { setKeyword(''); setLocFilter(''); setTypeFilter(''); setSourceFilter(''); setStatusFilter('') }}
               className="px-3 py-2 text-[13px] text-[var(--primary)] border border-[var(--border)] rounded-xl hover:bg-[var(--surface2)] transition-colors flex items-center gap-1">
