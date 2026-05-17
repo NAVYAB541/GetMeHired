@@ -111,32 +111,68 @@ export async function GET() {
 
   try {
     const queries = [
-      // Core — broadest possible sweep
+      // Core — broadest sweep
       'software engineer',
       'software developer',
-      // Frontend / Backend / Full Stack
+      'programmer',
+      'developer',
+      // Frontend
       'frontend developer',
+      'react developer',
+      'vue developer',
+      'angular developer',
+      'ui developer',
+      // Backend
       'backend developer',
+      'python developer',
+      'java developer',
+      'node developer',
+      'api developer',
+      // Full Stack
       'full stack developer',
-      // DevOps / Cloud
+      // DevOps / Cloud / Infrastructure
       'devops engineer',
       'cloud engineer',
       'platform engineer',
+      'infrastructure engineer',
+      'site reliability engineer',
+      'aws engineer',
       // Data / ML / AI
       'data engineer',
       'data scientist',
+      'data analyst',
       'machine learning engineer',
+      'ai engineer',
+      'business intelligence analyst',
       // Mobile
       'ios developer',
       'android developer',
-      // QA / Security / IT
+      'mobile developer',
+      'flutter developer',
+      // QA / Testing
       'qa engineer',
+      'test engineer',
+      'automation engineer',
+      'software tester',
+      // Security / Networking
       'security engineer',
+      'cybersecurity analyst',
+      'network engineer',
+      // IT / Systems
       'it support',
-      // Graduate / junior sweep
+      'systems engineer',
+      'it analyst',
+      'helpdesk',
+      // Graduate / junior / associate
       'graduate software engineer',
+      'graduate developer',
       'junior developer',
       'junior software engineer',
+      'associate software engineer',
+      'associate developer',
+      'entry level developer',
+      'cadet developer',
+      'intern developer',
     ]
 
     const results = await Promise.allSettled(queries.map(q => adzunaSearch(q)))
