@@ -78,6 +78,9 @@ function mapSource(url: string): string {
   return 'Adzuna'
 }
 
+// Tech keywords that must appear somewhere in title or description
+const TECH_ROLE_RE = /\b(software|engineer|developer|dev|frontend|backend|fullstack|full.stack|devops|cloud|data|machine learning|ml|ai|sre|platform|infrastructure|mobile|ios|android|typescript|javascript|python|java|react|node|api|qa|tester|testing|cyber|security|network|systems|architect|analyst|product manager|scrum|agile|it support|site reliability)\b/i
+
 async function adzunaSearch(query: string): Promise<any[]> {
   const url = new URL('https://api.adzuna.com/v1/api/jobs/au/search/1')
   url.searchParams.set('app_id', APP_ID!)
@@ -87,6 +90,7 @@ async function adzunaSearch(query: string): Promise<any[]> {
   url.searchParams.set('where', 'Sydney')
   url.searchParams.set('distance', '30')
   url.searchParams.set('sort_by', 'date')
+  url.searchParams.set('category', 'it-jobs')
   url.searchParams.set('content-type', 'application/json')
 
   const res = await fetch(url.toString(), { next: { revalidate: 0 } })
@@ -124,6 +128,7 @@ export async function GET() {
       for (const item of r.value) {
         if (seen.has(String(item.id))) continue
         if (isSeniorRole(item.title ?? '')) continue
+        if (!TECH_ROLE_RE.test((item.title ?? '') + ' ' + (item.description ?? ''))) continue
         seen.add(String(item.id))
 
         const desc = truncate(item.description ?? '')
