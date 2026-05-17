@@ -13,14 +13,19 @@ const TECH_TAGS = [
 
 function classifyType(title: string): string {
   const t = title.toLowerCase()
-  if (/graduate|entry.level|intern|cadet/.test(t))                         return 'Graduate'
-  if (/\bjunior\b|jr\.|associate/.test(t))                                 return 'Junior'
-  if (/front.end|frontend|react dev|ui dev|vue dev/.test(t))               return 'Frontend'
-  if (/back.end|backend|api dev/.test(t))                                  return 'Backend'
-  if (/full.stack|fullstack/.test(t))                                      return 'Full Stack'
-  if (/devops|site reliability|sre|cloud eng|platform eng|infrastructure/.test(t)) return 'DevOps'
-  if (/machine learning|deep learning|\bml\b|ai eng|nlp|data sci/.test(t)) return 'AI / ML'
-  if (/data eng|data anal|analytics|bi dev/.test(t))                       return 'Data'
+  if (/graduate|entry.level|intern|cadet/.test(t))                                   return 'Graduate'
+  if (/front.end|frontend|react dev|ui dev|vue dev/.test(t))                         return 'Frontend'
+  if (/back.end|backend|api dev/.test(t))                                            return 'Backend'
+  if (/full.stack|fullstack/.test(t))                                                return 'Full Stack'
+  if (/devops|site reliability|sre|cloud eng|platform eng|infrastructure/.test(t))   return 'DevOps'
+  if (/\bcloud\b/.test(t))                                                           return 'Cloud'
+  if (/machine learning|deep learning|\bml\b|ai eng|nlp|data sci/.test(t))           return 'AI / ML'
+  if (/data eng|data anal|analytics|bi dev|data sci/.test(t))                        return 'Data'
+  if (/mobile|ios|android|flutter|react native/.test(t))                             return 'Mobile'
+  if (/\bqa\b|quality assurance|test eng|tester|automation eng/.test(t))             return 'QA'
+  if (/cyber|security eng|infosec|penetration|pentest/.test(t))                      return 'Cybersecurity'
+  if (/network eng|network admin|it support|systems eng|it analyst/.test(t))         return 'IT'
+  if (/\bjunior\b|jr\.|associate/.test(t))                                           return 'Junior'
   return 'Software Engineer'
 }
 
@@ -106,16 +111,50 @@ export async function GET() {
 
   try {
     const queries = [
+      // Graduate / entry level
       'graduate software engineer',
+      'graduate developer',
+      'entry level software engineer',
+      'associate software engineer',
+      // Junior generalist
       'junior developer',
       'junior software engineer',
-      'associate software engineer',
-      'entry level developer',
+      'junior programmer',
+      // Frontend / Backend / Full Stack
+      'junior frontend developer',
+      'junior backend developer',
+      'junior full stack developer',
       'frontend developer',
       'backend developer',
+      'full stack developer',
+      // DevOps / Cloud / Infrastructure
+      'junior devops engineer',
+      'cloud engineer',
+      'junior cloud engineer',
+      'junior infrastructure engineer',
+      'site reliability engineer',
+      // Data / ML / AI
       'graduate data engineer',
-      'junior devops',
-      'junior machine learning',
+      'junior data engineer',
+      'junior data analyst',
+      'junior data scientist',
+      'junior machine learning engineer',
+      // Mobile
+      'junior mobile developer',
+      'junior ios developer',
+      'junior android developer',
+      // QA / Testing
+      'junior qa engineer',
+      'junior test engineer',
+      'software tester',
+      // Cybersecurity / Networking
+      'junior cybersecurity analyst',
+      'junior network engineer',
+      'junior security engineer',
+      // IT / Systems
+      'junior it support',
+      'junior systems engineer',
+      'junior it analyst',
     ]
 
     const results = await Promise.allSettled(queries.map(q => adzunaSearch(q)))
