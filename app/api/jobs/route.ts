@@ -111,50 +111,49 @@ export async function GET() {
 
   try {
     const queries = [
-      // Graduate / entry level
-      'graduate software engineer',
-      'graduate developer',
-      'entry level software engineer',
-      'associate software engineer',
-      // Junior generalist
-      'junior developer',
-      'junior software engineer',
-      'junior programmer',
+      // Core software engineering
+      'software engineer',
+      'software developer',
+      'programmer',
       // Frontend / Backend / Full Stack
-      'junior frontend developer',
-      'junior backend developer',
-      'junior full stack developer',
       'frontend developer',
       'backend developer',
       'full stack developer',
-      // DevOps / Cloud / Infrastructure
-      'junior devops engineer',
+      'react developer',
+      'node developer',
+      // DevOps / Cloud / Platform
+      'devops engineer',
       'cloud engineer',
-      'junior cloud engineer',
-      'junior infrastructure engineer',
+      'platform engineer',
+      'infrastructure engineer',
       'site reliability engineer',
       // Data / ML / AI
-      'graduate data engineer',
-      'junior data engineer',
-      'junior data analyst',
-      'junior data scientist',
-      'junior machine learning engineer',
+      'data engineer',
+      'data scientist',
+      'data analyst',
+      'machine learning engineer',
+      'ai engineer',
       // Mobile
-      'junior mobile developer',
-      'junior ios developer',
-      'junior android developer',
+      'mobile developer',
+      'ios developer',
+      'android developer',
       // QA / Testing
-      'junior qa engineer',
-      'junior test engineer',
-      'software tester',
+      'qa engineer',
+      'test engineer',
+      'automation engineer',
       // Cybersecurity / Networking
-      'junior cybersecurity analyst',
-      'junior network engineer',
-      'junior security engineer',
+      'cybersecurity analyst',
+      'security engineer',
+      'network engineer',
       // IT / Systems
-      'junior it support',
-      'junior systems engineer',
-      'junior it analyst',
+      'it support',
+      'systems engineer',
+      'it analyst',
+      // Graduate / entry level (extra sweep)
+      'graduate software engineer',
+      'junior developer',
+      'associate developer',
+      'entry level developer',
     ]
 
     const results = await Promise.allSettled(queries.map(q => adzunaSearch(q)))
@@ -166,7 +165,6 @@ export async function GET() {
       if (r.status !== 'fulfilled') continue
       for (const item of r.value) {
         if (seen.has(String(item.id))) continue
-        if (isSeniorRole(item.title ?? '')) continue
         if (!TECH_ROLE_RE.test((item.title ?? '') + ' ' + (item.description ?? ''))) continue
         seen.add(String(item.id))
 
