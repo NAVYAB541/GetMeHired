@@ -196,7 +196,7 @@ export default function Home() {
     if (sort === 'rating') list.sort((a, b) => b.companyRating - a.companyRating)
     if (sort === 'alpha')  list.sort((a, b) => a.company.localeCompare(b.company))
     return list
-  }, [jobs, keyword, locFilter, typeFilter, sourceFilter, statusFilter, sort, tab, savedSet, appliedSet])
+  }, [jobs, keyword, locFilter, typeFilter, sourceFilter, statusFilter, sort, tab, savedSet, appliedSet, entryOnly])
 
   const newCount = jobs.filter(j => j.postedDaysAgo === 0).length
   const hasFilters = !!(keyword || locFilter || typeFilter || sourceFilter || statusFilter)

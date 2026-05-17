@@ -90,7 +90,7 @@ async function adzunaSearch(query: string): Promise<any[]> {
   const url = new URL('https://api.adzuna.com/v1/api/jobs/au/search/1')
   url.searchParams.set('app_id', APP_ID!)
   url.searchParams.set('app_key', APP_KEY!)
-  url.searchParams.set('results_per_page', '20')
+  url.searchParams.set('results_per_page', '50')
   url.searchParams.set('what', query)
   url.searchParams.set('where', 'Sydney')
   url.searchParams.set('distance', '30')
@@ -98,7 +98,7 @@ async function adzunaSearch(query: string): Promise<any[]> {
   url.searchParams.set('category', 'it-jobs')
   url.searchParams.set('content-type', 'application/json')
 
-  const res = await fetch(url.toString(), { next: { revalidate: 0 } })
+  const res = await fetch(url.toString(), { next: { revalidate: 300 } })
   if (!res.ok) throw new Error(`Adzuna ${res.status}`)
   const data = await res.json()
   return data.results ?? []
@@ -111,49 +111,32 @@ export async function GET() {
 
   try {
     const queries = [
-      // Core software engineering
+      // Core — broadest possible sweep
       'software engineer',
       'software developer',
-      'programmer',
       // Frontend / Backend / Full Stack
       'frontend developer',
       'backend developer',
       'full stack developer',
-      'react developer',
-      'node developer',
-      // DevOps / Cloud / Platform
+      // DevOps / Cloud
       'devops engineer',
       'cloud engineer',
       'platform engineer',
-      'infrastructure engineer',
-      'site reliability engineer',
       // Data / ML / AI
       'data engineer',
       'data scientist',
-      'data analyst',
       'machine learning engineer',
-      'ai engineer',
       // Mobile
-      'mobile developer',
       'ios developer',
       'android developer',
-      // QA / Testing
+      // QA / Security / IT
       'qa engineer',
-      'test engineer',
-      'automation engineer',
-      // Cybersecurity / Networking
-      'cybersecurity analyst',
       'security engineer',
-      'network engineer',
-      // IT / Systems
       'it support',
-      'systems engineer',
-      'it analyst',
-      // Graduate / entry level (extra sweep)
+      // Graduate / junior sweep
       'graduate software engineer',
       'junior developer',
-      'associate developer',
-      'entry level developer',
+      'junior software engineer',
     ]
 
     const results = await Promise.allSettled(queries.map(q => adzunaSearch(q)))
