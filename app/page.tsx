@@ -135,7 +135,7 @@ function JobCard({ job, saved, applied, onSave, onApply }: {
   )
 }
 
-const JOB_TYPES = ['Graduate', 'Junior', 'Software Engineer', 'Full Stack', 'Frontend', 'Backend', 'AI / ML', 'DevOps', 'Data']
+const JOB_TYPES = ['Graduate', 'Junior', 'Software Engineer', 'Full Stack', 'Frontend', 'Backend', 'AI / ML', 'DevOps', 'Cloud', 'Data', 'Mobile', 'QA', 'Cybersecurity', 'IT']
 const SOURCES   = ['Seek', 'LinkedIn', 'Indeed', 'Glassdoor', 'Adzuna']
 const LOCATIONS = ['Sydney CBD', 'North Sydney', 'Parramatta', 'Macquarie Park', 'Pyrmont', 'Chatswood', 'Remote']
 
@@ -275,6 +275,24 @@ export default function Home() {
           </select>
         </div>
 
+        {/* Entry level toggle — always visible on its own row */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setEntryOnly(e => !e)}
+            className={`px-4 py-2 text-[13px] rounded-xl border transition-all font-medium flex items-center gap-2 ${
+              entryOnly
+                ? 'bg-[var(--green-dim)] border-[var(--green)]/40 text-[var(--green)]'
+                : 'bg-[var(--surface)] border-[var(--border)] text-[var(--text3)] hover:border-[var(--green)] hover:text-[var(--green)]'
+            }`}
+          >
+            <span className="text-base leading-none">{entryOnly ? '✓' : '○'}</span>
+            Entry level only
+          </button>
+          <span className="text-[12px] text-[var(--text3)]">
+            {entryOnly ? 'Hiding senior / lead / manager titles' : 'Showing all seniority levels'}
+          </span>
+        </div>
+
         {/* Filters */}
         <div className="flex gap-2 flex-wrap items-center">
           <span className="text-[12px] text-[var(--text3)]">Filter:</span>
@@ -292,18 +310,6 @@ export default function Home() {
             <option value="applied">Applied only</option>
             <option value="new">New today</option>
           </select>
-          <button
-            onClick={() => setEntryOnly(e => !e)}
-            className={`px-3 py-2 text-[13px] rounded-xl border transition-all font-medium flex items-center gap-1.5 ${
-              entryOnly
-                ? 'bg-[var(--green-dim)] border-[var(--green)]/40 text-[var(--green)]'
-                : 'bg-[var(--surface)] border-[var(--border)] text-[var(--text3)] hover:border-[var(--green)] hover:text-[var(--green)]'
-            }`}
-          >
-            <span>{entryOnly ? '✓' : '○'}</span>
-            Entry level only
-          </button>
-
           {hasFilters && (
             <button onClick={() => { setKeyword(''); setLocFilter(''); setTypeFilter(''); setSourceFilter(''); setStatusFilter('') }}
               className="px-3 py-2 text-[13px] text-[var(--primary)] border border-[var(--border)] rounded-xl hover:bg-[var(--surface2)] transition-colors flex items-center gap-1">
